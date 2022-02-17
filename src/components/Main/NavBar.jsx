@@ -13,7 +13,7 @@ const NavBar = () => {
         <Fragment>
             <Navbar bg="dark" expand="lg">
                     <Container>
-                        <NavLink to="/"><Navbar.Brand >Notes App</Navbar.Brand></NavLink>
+                        <NavLink to="/"><Navbar.Brand >Notes</Navbar.Brand></NavLink>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">

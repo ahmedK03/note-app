@@ -17,7 +17,12 @@ The main theme is available in a separate folder
 ```
     npm i react-router-dom@5.2.0
 ```
-<hr/>
+- axios *to new user data to back end*
+```
+    npm i axios
+```
+- added .env file.
+---
 
 ### Routing Steps:
 
@@ -42,4 +47,22 @@ The main theme is available in a separate folder
 ```
     <NavLink to="/home">Home</NavLink>
 ```
+4. when adding a Route to component, it passes a props named 'history', we can use it to redirect to another component 
+```
+    props.history.replace('/component')
+```
+---
 
+### Send Data Using axios
+
+1. import axios
+```
+    import axios from 'axios';
+```
+
+2. using async & await function 
+```
+    async function sendData () {
+        let { data } = await axios.post(`${endPoint}/signup`, userInfo );
+    }
+```
