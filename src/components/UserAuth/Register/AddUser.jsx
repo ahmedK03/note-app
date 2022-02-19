@@ -1,8 +1,10 @@
-import useInput from "../../hooks/use-input"; // custom hook
+import { useState } from "react";
+import useInput from "../../../hooks/use-input"; // custom hook
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 import "./AddUser.css";
 
@@ -14,7 +16,10 @@ const passwordNotValid = (value) => value.trim().length > 8;
 
 let formIsValid = false;
 
-const AddUser = () => {
+//  props from router-dom to navigate to another page
+const AddUser = ({ history }) => {
+  const [userError, setUserError] = useState("");
+
   const {
     value: enteredFname,
     isValid: enteredFnameIsValid,
@@ -71,7 +76,7 @@ const AddUser = () => {
     formIsValid = true;
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
     if (valuesAreinValid) {
@@ -84,12 +89,22 @@ const AddUser = () => {
       email: enteredEmail,
       password: enteredPassword,
     };
-    console.log(userInfo);
+
+    let { data } = await axios.post(`${endPoint}/signup`, userInfo);
+
+    console.log(data);
 
     resetFname();
     resetLname();
     resetEmail();
     resetPassword();
+
+    if (data.message === "success") {
+      history.replace("/login");
+    } else {
+      console.log("email already registered");
+      setUserError("email already registered");
+    }
   };
 
   return (
@@ -98,6 +113,11 @@ const AddUser = () => {
       className="d-flex justify-content-center align-items-center">
       <Container>
         <Col md={6} className="mx-auto">
+          {userError !== "" && (
+            <Alert variant="danger" dismissible>
+              <p>{userError}</p>
+            </Alert>
+          )}
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="userFirstName">
               <Form.Label>Enter your first name</Form.Label>

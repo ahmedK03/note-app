@@ -1,0 +1,7 @@
+#registerForm {
+  height: 750px;
+}
+
+.invalid {
+  border-color: red !important;
+}
