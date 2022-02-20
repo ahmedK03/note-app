@@ -17,8 +17,9 @@ The main theme is available in a separate folder
 ```
     npm i react-router-dom@5.2.0
 ```
-- axios *to new user data to back end*
-```
+- axios **to new user data to back end**
+
+```js
     npm i axios
 ```
 - added .env file.
@@ -27,13 +28,16 @@ The main theme is available in a separate folder
 ### Routing Steps:
 
 1. import BrowserRouter in index.js file.
-```
+
+```jsx
     <BrowserRouter>
             <App/>
     </BrowserRouter>
 ```
 2. import Route, Switch & Redirect in App.jsx file.
-```
+
+```jsx
+
         <NavBar />
         <Switch>
           <Redirect exact from="/" to="/home" />
@@ -52,17 +56,51 @@ The main theme is available in a separate folder
     props.history.replace('/component')
 ```
 ---
+### Authentication
+
+Created a custom hook to handle the form validaion.
+
+the custom hook is using `useReducer()` 
+
+After the Form is being Validated - in a separate component- we pass the final data to the register/ login component to send them to the end point
+
+
+---
 
 ### Send Data Using axios
 
 1. import axios
-```
+```js
     import axios from 'axios';
 ```
 
-2. using async & await function 
-```
+2. using async & await function
+
+```js
+
+    const userInfo = {
+      first_name: enteredFname,
+      last_name: enteredLname,
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
     async function sendData () {
         let { data } = await axios.post(`${endPoint}/signup`, userInfo );
     }
 ```
+---
+
+### Jwt decode
+
+We use it to decode the token recieved from the api.
+
+The token contain the user info.
+
+
+##### How to install
+`npm i jwt-decode`
+
+
+##### How to use it
+refer to the link https://www.npmjs.com/package/jwt-decode
