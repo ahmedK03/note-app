@@ -91,6 +91,27 @@ After the Form is being Validated - in a separate component- we pass the final d
 ```
 ---
 
+## Adding a protected route
+
+#### Steps to Add Protected Roure:
+
+1. Create a new component
+2. In the `App.jsx` add the new component, then adjust the default route.
+3. In the Component itself
+    ```jsx
+
+    import {Route} from 'react-router-dom';
+
+
+    <!-- the props from the react router dom -->
+    function Guard (props) {
+        <!-- get the token from the local storage here -->
+        return <Route  {...props}/>
+    } 
+    ```
+
+---
+
 ### Jwt decode
 
 We use it to decode the token recieved from the api.
@@ -104,3 +125,5 @@ The token contain the user info.
 
 ##### How to use it
 refer to the link https://www.npmjs.com/package/jwt-decode
+
+add the decode function in a try and catch scheme - in case of error, clear the local storage
