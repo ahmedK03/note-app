@@ -127,3 +127,11 @@ The token contain the user info.
 refer to the link https://www.npmjs.com/package/jwt-decode
 
 add the decode function in a try and catch scheme - in case of error, clear the local storage
+
+---
+
+## Logout
+
+to log out we used the `useLocation()` from `react-router-dom` 
+
+created a conditional rendering to assign which nav-links to display in case a token exists or not
