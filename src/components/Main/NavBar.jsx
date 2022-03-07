@@ -8,7 +8,7 @@ const logOut = () => localStorage.clear();
 
 const NavBar = () => {
   const userLocation = useLocation();
-  console.log(userLocation.pathname);
+  console.log("path name: " + userLocation.pathname);
   return (
     <Fragment>
       <Navbar bg="dark" expand="lg">

@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import AddUserForm from "./AddUserForm";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 import "./AddUser.css";
-import AddUserForm from "./AddUserForm";
 
 const endPoint = process.env.REACT_APP_ROUTE_EGY_ENDPOINT;
 

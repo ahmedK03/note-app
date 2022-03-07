@@ -8,7 +8,6 @@ const RouteGuard = ({ path, component }) => {
 
   try {
     const tokenDecoded = jwt_decode(userToken);
-    console.log(tokenDecoded);
   } catch (error) {
     localStorage.clear();
     return <Redirect to="/login" />;
