@@ -15,7 +15,7 @@ if (userToken) {
 
 const dummyContent = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse consequatur aliquid error aut! Animi alias, eos necessitatibus ratione quam, doloribus aperiam ab eveniet quis modi expedita, voluptates corrupti sunt illo`;
 
-const Notes = () => {
+const Notes = ({onUpdate}) => {
   const [messages, setMessages] = useState("");
   const [allNotes, setAllNotes] = useState([]);
 
@@ -26,33 +26,28 @@ const Notes = () => {
         userID: userId,
       },
     });
-
-    console.log(data);
-    setAllNotes([...data.Notes])
-    setMessages(data.messages);
+    setAllNotes([...data.Notes]);
+    setMessages(data.message);
+    console.log('updated after adding');
   };
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [onUpdate]);
 
   const userNotes = allNotes.map((note) => {
-    return <SingleNote title={note.title} content={note.desc} />;
+    return <SingleNote key={note._id} title={note.title} content={note.desc} />;
   });
-
-  console.log(allNotes);
 
   return (
     <Fragment>
       {/* <!-- ==========================Notes=============================== --> */}
       <Container>
         <Row>
-          
-            {messages === "no notes found" && (
-              <SingleNote title={"text"} content={dummyContent} />
-            )}
-            {messages === "success" && userNotes}
-          
+          {messages === "no notes found" && (
+            <SingleNote title={"text"} content={dummyContent} />
+          )}
+          {messages === "success" && userNotes}
         </Row>
       </Container>
     </Fragment>

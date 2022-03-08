@@ -27,8 +27,10 @@ const addNewNote = {
 *
 *
 *
-better make the addNotes func in the <Notes /> comp... and pass the modal data to it ... 
-
+  better make the addNotes func in the <Notes /> comp... and pass the modal data to it ... 
+*
+*
+*
 */
 const Home = () => {
   const [newNote, setNewNote] = useState(addNewNote);
@@ -46,21 +48,31 @@ const Home = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (noteTitle.trim().length === 0 || noteBody.trim().length === 0) {
-    //   return;
-    // }
-    console.log({...addNewNote, title: noteTitle, desc: noteBody });
-    addNote(addNewNote);
+    if (noteTitle.trim().length === 0 || noteBody.trim().length === 0) {
+      console.log("empty");
+      return;
+    }
+
+    setTimeout(()=>{
+      setNewNote({ ...addNewNote, title: noteTitle, desc: noteBody });
+    
+    },800)
+    
+
+    addNote();
+
     setNoteTitle("");
     setNoteBody("");
     setViewModal(false);
   };
 
   const addNote = async () => {
-    setNewNote({ ...addNewNote, title: noteTitle, desc: noteBody });
-    let {data} = await axios.post(endPoint + '/addNote', await addNewNote);
-    console.log(data.message);
-  }
+    const newNotes = await newNote;
+    // let { data } = await axios.post(endPoint + "/addNote", newNote);
+    console.log(newNotes);
+  };
+
+  console.log(newNote);
 
   const handleModal = () => setViewModal(!viewModal);
 
@@ -79,7 +91,7 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Notes />
+        <Notes onUpdate={newNote} />
 
         {/* <!-- Modal --> */}
         <Modal show={viewModal} onHide={handleModal}>
