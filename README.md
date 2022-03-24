@@ -135,3 +135,19 @@ add the decode function in a try and catch scheme - in case of error, clear the 
 to log out we used the `useLocation()` from `react-router-dom` 
 
 created a conditional rendering to assign which nav-links to display in case a token exists or not
+
+---
+
+## AddNotes
+
+A problem occurs while it's adding the prevState note instead of the newly note!
+
+--- 
+
+## Delete & Update 
+
+- Was Able to pass a func from child to parent to call the useEffect Dependency again.
+
+- Another Idea is to create a modal for the delete and the update
+
+- I'm thinking about makes a separate component for the modal to re-use it in case of update or adding a new note
