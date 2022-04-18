@@ -13,11 +13,10 @@ if (userToken) {
   var userId = decoded._id;
 }
 
-const dummyContent = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse consequatur aliquid error aut! Animi alias, eos necessitatibus ratione quam, doloribus aperiam ab eveniet quis modi expedita, voluptates corrupti sunt illo`;
-
-const Notes = ({onUpdate}) => {
+const Notes = ({ onAdding }) => {
   const [messages, setMessages] = useState("");
-  const [allNotes, setAllNotes] = useState([]);
+  const [allNotes, setAllNotes] = useState({});
+  const [afterChanges, setAfterChanges] = useState(false);
 
   const getAllUsers = async () => {
     let { data } = await axios.get(endPoint + "/getUserNotes", {
@@ -26,17 +25,29 @@ const Notes = ({onUpdate}) => {
         userID: userId,
       },
     });
-    setAllNotes([...data.Notes]);
+    setAllNotes({...data.Notes});
     setMessages(data.message);
-    console.log('updated after adding');
+    console.log("updated after adding");
   };
 
+  const afterChangesHandler = () => {
+    setAfterChanges(!afterChanges);
+    console.log("from notes comp");
+  };
   useEffect(() => {
     getAllUsers();
-  }, [onUpdate]);
+  }, [onAdding, afterChanges]);
 
   const userNotes = allNotes.map((note) => {
-    return <SingleNote key={note._id} title={note.title} content={note.desc} />;
+    return (
+      <SingleNote
+        key={note._id}
+        id={note._id}
+        afterChanges={afterChangesHandler}
+        title={note.title}
+        content={note.desc}
+      />
+    );
   });
 
   return (
@@ -45,7 +56,10 @@ const Notes = ({onUpdate}) => {
       <Container>
         <Row>
           {messages === "no notes found" && (
-            <SingleNote title={"text"} content={dummyContent} />
+            <SingleNote
+              title={"text"}
+              content="Lorem ipsum dolor sit amet consectetur adipisicing elit."
+            />
           )}
           {messages === "success" && userNotes}
         </Row>

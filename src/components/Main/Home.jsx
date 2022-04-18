@@ -23,20 +23,13 @@ const addNewNote = {
   token: userToken,
   userID: userId,
 };
-/*
-*
-*
-*
-  better make the addNotes func in the <Notes /> comp... and pass the modal data to it ... 
-*
-*
-*
-*/
+
 const Home = () => {
   const [newNote, setNewNote] = useState(addNewNote);
   const [viewModal, setViewModal] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteBody, setNoteBody] = useState("");
+  const handleModal = () => setViewModal(!viewModal);
 
   const addTitleHandler = ({ target }) => {
     setNoteTitle(target.value);
@@ -53,11 +46,7 @@ const Home = () => {
       return;
     }
 
-    setTimeout(()=>{
-      setNewNote({ ...addNewNote, title: noteTitle, desc: noteBody });
-    
-    },800)
-    
+    setNewNote({ ...addNewNote, title: noteTitle, desc: noteBody });
 
     addNote();
 
@@ -72,26 +61,29 @@ const Home = () => {
     console.log(newNotes);
   };
 
-  console.log(newNote);
-
-  const handleModal = () => setViewModal(!viewModal);
-
   return (
     <Fragment>
       <Container>
-        <Row>
-          <Col xs={12}>
-            <div className="text-end my-5">
+        <Row className="justify-content-md-between  mt-5 mb-3">
+          <Col md={6}>
+            <div>
+              <h1 className="text-start">
+                Welcome, User
+              </h1>
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="text-end">
               <Button
                 onClick={handleModal}
                 className="btn-primary btn rounded-2 py-2">
-                Add New
+                <i class="fa-solid fa-circle-plus"></i> Add New Note
               </Button>
             </div>
           </Col>
         </Row>
 
-        <Notes onUpdate={newNote} />
+        <Notes onAdding={newNote} />
 
         {/* <!-- Modal --> */}
         <Modal show={viewModal} onHide={handleModal}>
